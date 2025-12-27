@@ -73,14 +73,13 @@ const perform = async (z: ZObject, bundle: Bundle) => {
   };
 };
 
-const searchCreate: Create = {
+const searchCreate = {
   key: 'search',
   noun: 'Search',
   display: {
     label: 'Search the Web With Crawleo',
     description: 'Run a Crawleo real-time search and return cleaned web content and metadata.',
   },
-  cleanInputData: false,
   operation: {
     inputFields: [
       {
@@ -178,6 +177,6 @@ const searchCreate: Create = {
       { key: 'results[]domain' },
     ],
   },
-};
+} as Create;
 
 export default searchCreate;
