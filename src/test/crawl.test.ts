@@ -19,8 +19,8 @@ afterEach(() => {
 describe('Crawleo crawl create', () => {
   it('returns crawl data', async () => {
     nock('https://api.crawleo.dev')
-      .get('/api/v1/crawler')
-      .query((query) => query.urls === 'https://example.com')
+      .get('/api/v1/crawl')
+      .query((query) => query.urls === 'https://example.com' && query.device === 'desktop')
       .reply(200, {
         status: 'success',
         data: {

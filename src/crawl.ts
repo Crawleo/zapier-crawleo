@@ -1,13 +1,17 @@
 import type { Bundle, Create, ZObject } from 'zapier-platform-core';
 
 const buildParams = (bundle: Bundle) => {
-  const { urls, raw_html, markdown, page_text } = bundle.inputData;
+  const { urls, raw_html, markdown, page_text, enhanced_html, country, device, screenshot } = bundle.inputData;
 
   const params: Record<string, unknown> = {
     urls,
     raw_html: raw_html ?? false,
-    markdown: markdown ?? true,
+    markdown: markdown ?? false,
     page_text: page_text ?? false,
+    enhanced_html: enhanced_html ?? true,
+    country: country ?? 'us',
+    device: device ?? 'desktop',
+    screenshot: screenshot ?? 'false',
   };
 
   Object.entries(params).forEach(([key, value]) => {
@@ -22,7 +26,7 @@ const buildParams = (bundle: Bundle) => {
 const perform = async (z: ZObject, bundle: Bundle) => {
   const response = await z.request({
     method: 'GET',
-    url: 'https://api.crawleo.dev/api/v1/crawler',
+    url: 'https://api.crawleo.dev/api/v1/crawl',
     params: buildParams(bundle),
   });
 
@@ -55,13 +59,13 @@ const crawlCreate: Create = {
         key: 'urls',
         label: 'URLs',
         required: true,
-        helpText: 'Comma-separated list of URLs to crawl (for example: https://example.com , https://example.org).',
+        helpText: 'Comma-separated list of URLs to crawl for example: `https://example.com, https://example.org`.',
       },
       {
         key: 'markdown',
         label: 'Markdown',
         type: 'boolean',
-        helpText: 'Return content in Markdown format (default: true).',
+        helpText: 'Return content in Markdown format (default: false).',
       },
       {
         key: 'page_text',
@@ -74,6 +78,31 @@ const crawlCreate: Create = {
         label: 'Raw HTML',
         type: 'boolean',
         helpText: 'Return the original, unprocessed HTML (default: false).',
+      },
+      {
+        key: 'enhanced_html',
+        label: 'Enhanced HTML',
+        type: 'boolean',
+        helpText: 'Return AI-enhanced, cleaned HTML (default: true).',
+      },
+      {
+        key: 'country',
+        label: 'Country Code',
+        type: 'string',
+        helpText: 'Country code for crawling (default: us).',
+      },
+      {
+        key: 'device',
+        label: 'Device',
+        type: 'string',
+        choices: ['desktop', 'mobile', 'tablet'],
+        helpText: 'Device simulation for crawling (default: desktop).',
+      },
+      {
+        key: 'screenshot',
+        label: 'Screenshot',
+        type: 'string',
+        helpText: 'Enable screenshots (set to true) or keep false (default).',
       },
     ],
     perform,

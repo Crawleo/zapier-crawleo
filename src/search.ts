@@ -12,6 +12,7 @@ const buildParams = (bundle: Bundle) => {
     raw_html,
     page_text,
     markdown,
+    auto_crawling,
   } = bundle.inputData;
 
   const params: Record<string, unknown> = {
@@ -25,6 +26,7 @@ const buildParams = (bundle: Bundle) => {
     raw_html: raw_html ?? false,
     page_text: page_text ?? false,
     markdown: markdown ?? true,
+    auto_crawling: auto_crawling ?? false,
   };
 
   // Remove empty strings/undefined/null
@@ -152,6 +154,12 @@ const searchCreate = {
         label: 'Markdown',
         type: 'boolean',
         helpText: 'Return content in Markdown format (default: true).',
+      },
+      {
+        key: 'auto_crawling',
+        label: 'Auto Crawling',
+        type: 'boolean',
+        helpText: 'Automatically crawl search results (default: false). Each crawled page may consume additional credits.',
       },
     ],
     perform,
