@@ -14,18 +14,27 @@ const buildParams = (bundle: Bundle) => {
     markdown,
   } = bundle.inputData;
 
-  return {
+  const params: Record<string, unknown> = {
     query,
     max_pages,
     setLang,
     cc,
     geolocation,
-    device,
-    enhanced_html,
-    raw_html,
-    page_text,
-    markdown,
+    device: device ?? 'desktop',
+    enhanced_html: enhanced_html ?? true,
+    raw_html: raw_html ?? false,
+    page_text: page_text ?? false,
+    markdown: markdown ?? true,
   };
+
+  // Remove empty strings/undefined/null
+  Object.entries(params).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === '') {
+      delete params[key];
+    }
+  });
+
+  return params;
 };
 
 const perform = async (z: ZObject, bundle: Bundle) => {

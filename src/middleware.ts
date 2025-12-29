@@ -6,7 +6,9 @@ const handleBadResponses = (response, z: ZObject) => {
   }
 
   if (response.status >= 400) {
-    throw new z.errors.HaltedError(`Crawleo API request failed (${response.status})`);
+    const detail = response.data?.message || response.data?.error || response.content || '';
+    const message = detail ? `Crawleo API request failed (${response.status}): ${detail}` : `Crawleo API request failed (${response.status})`;
+    throw new z.errors.HaltedError(message);
   }
 
   return response;

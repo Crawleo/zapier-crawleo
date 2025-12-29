@@ -5,6 +5,7 @@ import packageJson from '../package.json' with { type: 'json' };
 import authentication from './authentication.js';
 import { befores, afters } from './middleware.js';
 import searchCreate from './search.js';
+import crawlCreate from './crawl.js';
 
 export default defineApp({
   version: packageJson.version,
@@ -20,5 +21,6 @@ export default defineApp({
   // Add your creates here for them to show up!
   creates: {
     [searchCreate.key]: searchCreate,
+    [crawlCreate.key]: crawlCreate,
   },
 });

@@ -23,10 +23,11 @@ zapier register "Crawleo"
 zapier push
 ```
 
-## Action implemented
-- **Search the Web with Crawleo**: accepts Crawleo search parameters (`query`, `max_pages`, `setLang`, `cc`, `geolocation`, `device`, `enhanced_html`, `raw_html`, `page_text`, `markdown`). Returns search metadata plus a flattened `results[]` array for easy Zap mapping.
+## Actions implemented
+- **Search the Web With Crawleo**: accepts Crawleo search parameters (`query`, `max_pages`, `setLang`, `cc`, `geolocation`, `device`, `enhanced_html`, `raw_html`, `page_text`, `markdown`). Returns search metadata plus a flattened `results[]` array for easy Zap mapping.
+- **Crawl URLs With Crawleo**: hit `/api/v1/crawler` with comma-separated URLs, optional `markdown`, `page_text`, `raw_html`.
 
 ## Notes
 - Authentication test hits Crawleo `/search` with a minimal payload to validate the API key.
-- Middleware attaches the `x-api-key` header to every request and standardizes JSON responses.
+- Middleware attaches the `x-api-key` header to every request and surfaces Crawleo error messages when present.
 - Connection label masks the key (`Crawleo API key …XXXX`).
