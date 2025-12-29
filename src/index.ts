@@ -14,6 +14,9 @@ export default defineApp({
   authentication,
   beforeRequest: [...befores],
   afterResponse: [...afters],
+  flags: {
+    cleanInputData: false,
+  },
 
   // Add your triggers here for them to show up!
   triggers: {},

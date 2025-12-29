@@ -55,7 +55,7 @@ const crawlCreate: Create = {
         key: 'urls',
         label: 'URLs',
         required: true,
-        helpText: 'Comma-separated list of URLs to crawl. Example: https://example.com,https://example.org',
+        helpText: 'Comma-separated list of URLs to crawl (for example: https://example.com , https://example.org).',
       },
       {
         key: 'markdown',
